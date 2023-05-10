@@ -1,1 +1,2 @@
 Mai napon (2023.04.24.) befejeztem a Jira projektben kijelölt feladatokat [Menüszerkezeti pontok és a Számkitalálós játék] elvégeztem, melyeket a Figma.com-on található tervezetben lehet megtekinteni.
+Mai napon (2023.04.25.) befejeztem a Jira projektben kijelölt feladatokat [Számkitalálós statisztika, Számológép és csoportba rendeztem a megadott elemek, elrendeztem őket] elvégeztem, melyeket a Figma.com-on található tervezetben lehet megtekinteni.
