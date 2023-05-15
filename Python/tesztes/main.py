@@ -11,6 +11,7 @@ menu3=Menubutton(menusor,text="Profil",underline=0)
 menu4=Menubutton(menusor,text="Rólunk",underline=0)
 
 menu0.grid(row=0, column=0)
+
 menu1.grid(row=0, column=1)
 menu2.grid(row=0, column=2)
 menu3.grid(row=0, column=3)
@@ -31,6 +32,7 @@ jatek.add_command(label="Brick Breaker",command=ablak1.destroy)
 jatek.add_command(label="Kő, Papír, Olló",command=ablak1.destroy)
 jatek.add_command(label="Számkitalálós",command=ablak1.destroy)
 jatek.add_command(label="Snake",command=ablak1.destroy)
+jatek.add_cascade(label = "Játékok", menu = menu1)
 matek.add_command(label="Számológép")
 matek.add_command(label="Kerület Terület")
 matek.add_command(label="Turtle")
@@ -41,13 +43,13 @@ rolunk.add_command(label="A programot készítette:")
 rolunk.add_command(label="Basa Martin")
 rolunk.add_command(label="Dóczi Adrián Márk")
 rolunk.add_command(label="Bujáki Erik Attila")
-
+#lenyilo menu szin
 fajl.config(bg="RED", fg="WHITE")
 jatek.config(bg="RED", fg="WHITE")
 matek.config(bg="RED", fg="WHITE")
 profil.config(bg="RED", fg="WHITE")
 rolunk.config(bg="RED", fg="WHITE")
-
+#menusorok szine
 menu0.config(menu=fajl, bg="BLACK",fg="WHITE")
 menu0.config(menu=fajl, bg="BLACK",fg="WHITE")
 menu1.config(menu=jatek, bg="BLACK",fg="WHITE")
