@@ -1,0 +1,6 @@
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+
+pip install Pillow
+pip install requests-toolbelt==0.9.1
+pip install firebase-admin
+pip install firebase
