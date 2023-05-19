@@ -1,6 +1,19 @@
 from tkinter import *
+import os
+import subprocess
 
 def menu(ablak1, bejelentkezve):
+
+	def akasztofa_start():
+		try:
+			new_path = "./games/akasztofa"
+			os.chdir(new_path)
+			subprocess.run(["python", "./akasztofa.py"])
+		except:
+			subprocess.run(["python", "./akasztofa.py"])
+		
+		
+
 	menusor=Frame(ablak1)
 	menusor.grid(row=0)
 	menu0=Menubutton(menusor,text="Fájlok",underline=0)
@@ -25,7 +38,7 @@ def menu(ablak1, bejelentkezve):
 	fajl.add_command(label="Kilepes",command=ablak1.destroy)
 	fajl.add_command(label="Export",command=ablak1.destroy)
 	fajl.add_command(label="Import",command=ablak1.destroy)
-	jatek.add_command(label="Akasztófa",command=ablak1.destroy)
+	jatek.add_command(label="Akasztófa",command=akasztofa_start)
 	jatek.add_command(label="Brick Breaker",command=ablak1.destroy)
 	jatek.add_command(label="Kő, Papír, Olló",command=ablak1.destroy)
 	jatek.add_command(label="Számkitalálós",command=ablak1.destroy)

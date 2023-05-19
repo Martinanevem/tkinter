@@ -26,5 +26,3 @@ def start(nev):
         
         warn_szoveg_vendeg = Label(ablak1, text=f"Vendég: adataid nem lesznek mentve az adatbázisba!").grid(row=2, column=0)
     ablak1.mainloop()
-
-start("RandomCicaMica")
