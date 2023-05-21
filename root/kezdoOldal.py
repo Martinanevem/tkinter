@@ -10,7 +10,7 @@ def regisztracio():
     authAblak(regisztracio=True)
 def vendeg():
     ablak1.destroy()
-    start("Vendég")
+    authAblak(regisztracio=False)
 
 
 

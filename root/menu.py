@@ -2,8 +2,11 @@ from tkinter import *
 import os
 import subprocess
 
-def menu(ablak1, bejelentkezve):
+from profil import profil_szerkesztes
 
+def menu(ablak1, bejelentkezve, titkos_adatok):
+
+	#GAME részleg:
 	def akasztofa_start():
 		try:
 			new_path = "./games/akasztofa"
@@ -11,6 +14,23 @@ def menu(ablak1, bejelentkezve):
 			subprocess.run(["python", "./akasztofa.py"])
 		except:
 			subprocess.run(["python", "./akasztofa.py"])
+	#GAME részleg vége-------------------------------------
+	
+	#MATEK részleg
+	def turtle_start():
+		try:
+			new_path = "./matek"
+			os.chdir(new_path)
+			subprocess.run(["python", "./turtle.py"])
+		except:
+			subprocess.run(["python", "./turtle.py"])
+	#MATEK részleg vége------------------------------------
+
+	def profil_start():
+		try:
+			subprocess.run(["python", "./profil.py"])
+		except:
+			subprocess.run(["python", "./profil.py"])
 		
 		
 
@@ -46,9 +66,9 @@ def menu(ablak1, bejelentkezve):
 	jatek.add_cascade(label = "Játékok", menu = menu1)
 	matek.add_command(label="Számológép")
 	matek.add_command(label="Kerület Terület")
-	matek.add_command(label="Turtle")
+	matek.add_command(label="Turtle", command=turtle_start)
 	if bejelentkezve: 
-		profil.add_command(label="Testreszabás")
+		profil.add_command(label="Testreszabás", command=lambda:profil_szerkesztes(titkos_adatok[0], titkos_adatok[1], titkos_adatok[2]))
 		profil.add_command(label="Ranglista")
 		profil.add_command(label="Kijelentkezés")
 	rolunk.add_command(label="A programot készítette:")

@@ -5,6 +5,7 @@ import random
 
 from time import sleep
 
+
 class Akasztofa:
     def __init__(self):
         self.window = tk.Tk()
@@ -264,6 +265,8 @@ class Akasztofa:
 
         self.ujra = tk.Button(self.window, text="Újra", bg="GRAY", command=lambda:self.restart_game())
         self.ujra.grid(row=4, column=3, padx=(0, 0))
+
+
 
     def restart_game(self):
         self.window.destroy()

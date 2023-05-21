@@ -36,8 +36,17 @@ def auth_bejelentkezes(ablak1, nev, jelszo):
     for key, value in osszes_adat.items():
         if key == adatok[0] and value == adatok[1]: #ekkor sikerült a bejelntkezés
             print("Sikerült az adatok authentikalizálása!")
+            osszes_adat=database.child("Osszes_pontszam").get().val()
+            bio = "Üres"
+            search_key = adatok[0]
+            sorted_items = sorted(osszes_adat.items(), key=lambda x: x[1], reverse=True)
+
+            for index, (key, value) in enumerate(sorted_items):
+                if key == search_key:
+                    hely = index
+            titkos_adatok = [adatok[0], bio, hely]
             ablak1.destroy()
-            start(nev)
+            start(nev, osszes_adat, titkos_adatok)
             
             
     else:
@@ -76,77 +85,79 @@ def auth_regisztracio(ablak1, nev, jelszo, jelszo_ujra):
     else: #ekkor végre mindent jól csinált a felhasználó
         veges_adatok = {user: password}
         database.child("Users").update(veges_adatok)
+        database.child("Kigyos_jatek").update(veges_adatok)
+        database.child("Osszes_pontszam").update({user: 0})
         ablak1.destroy()
 
 
 def authAblak(bejelentkezes=False, regisztracio=False):
 
-    ablak1 = Tk()
+    if bejelentkezes == True or regisztracio == True:
+        ablak1 = Tk()
 
-    ablak1.title("Felhasználó hitelesítése")
-    ablak1.geometry("400x200")
+        ablak1.title("Felhasználó hitelesítése")
+        ablak1.geometry("400x200")
 
-    frame1 = Frame(ablak1, highlightbackground="grey", highlightthickness=2)
-    ablak1.columnconfigure(0, weight=1)
-    ablak1.columnconfigure(3, weight=1)
-    ablak1.rowconfigure(0, weight=1)
-    ablak1.rowconfigure(3, weight=1)
+        frame1 = Frame(ablak1, highlightbackground="grey", highlightthickness=2)
+        ablak1.columnconfigure(0, weight=1)
+        ablak1.columnconfigure(3, weight=1)
+        ablak1.rowconfigure(0, weight=1)
+        ablak1.rowconfigure(3, weight=1)
 
-    if bejelentkezes:
+        if bejelentkezes:
 
-        loginSzoveg = Label(ablak1, text="Kérlek add meg a felhasználóneved", font=('Helvetica bold', 12))
-        loginSzoveg.grid(row=1, column=1, sticky="e", padx=5, pady=5)
+            loginSzoveg = Label(ablak1, text="Kérlek add meg a felhasználóneved", font=('Helvetica bold', 12))
+            loginSzoveg.grid(row=1, column=1, sticky="e", padx=5, pady=5)
 
-        loginEntry = Entry(ablak1)
-        loginEntry.grid(row=1, column=2)
+            loginEntry = Entry(ablak1)
+            loginEntry.grid(row=1, column=2)
 
-        loginSzoveg2 = Label(ablak1, text="Kérlek add meg a jelszavad", font=('Helvetica bold', 12))
-        loginSzoveg2.grid(row=2, column=1, padx=5, pady=5)
+            loginSzoveg2 = Label(ablak1, text="Kérlek add meg a jelszavad", font=('Helvetica bold', 12))
+            loginSzoveg2.grid(row=2, column=1, padx=5, pady=5)
 
-        loginEntry2 = Entry(ablak1)
-        loginEntry2.grid(row=2, column=2)
+            loginEntry2 = Entry(ablak1)
+            loginEntry2.grid(row=2, column=2)
 
-        gomb = Button(ablak1, font=('Helvetica bold', 16), text="Bejelentkezem!", command=lambda: auth_bejelentkezes(
-            #ahol:
-            ablak1 = ablak1,
-            nev = loginEntry.get(),
-            jelszo = loginEntry2.get()
+            gomb = Button(ablak1, font=('Helvetica bold', 16), text="Bejelentkezem!", command=lambda: auth_bejelentkezes(
+                #ahol:
+                ablak1 = ablak1,
+                nev = loginEntry.get(),
+                jelszo = loginEntry2.get()
 
-        ))
-        gomb.grid(row=3, columnspan=2, column=1)
-    elif regisztracio:
+            ))
+            gomb.grid(row=3, columnspan=2, column=1)
+        elif regisztracio:
 
-        loginSzoveg = Label(ablak1, text="Kérlek add meg a felhasználóneved", font=('Helvetica bold', 12))
-        loginSzoveg.grid(row=1, column=1, sticky="e", padx=5, pady=5)
+            loginSzoveg = Label(ablak1, text="Kérlek add meg a felhasználóneved", font=('Helvetica bold', 12))
+            loginSzoveg.grid(row=1, column=1, sticky="e", padx=5, pady=5)
 
-        loginEntry = Entry(ablak1)
-        loginEntry.grid(row=1, column=2)
+            loginEntry = Entry(ablak1)
+            loginEntry.grid(row=1, column=2)
 
-        loginSzoveg2 = Label(ablak1, text="Kérlek add meg a jelszavad", font=('Helvetica bold', 12))
-        loginSzoveg2.grid(row=2, column=1, padx=5, pady=5)
+            loginSzoveg2 = Label(ablak1, text="Kérlek add meg a jelszavad", font=('Helvetica bold', 12))
+            loginSzoveg2.grid(row=2, column=1, padx=5, pady=5)
 
-        loginEntry2 = Entry(ablak1)
-        loginEntry2.grid(row=2, column=2)
+            loginEntry2 = Entry(ablak1)
+            loginEntry2.grid(row=2, column=2)
 
-        loginSzoveg3 = Label(ablak1, text="Kérlek add meg a jelszavad újra", font=('Helvetica bold', 12))
-        loginSzoveg3.grid(row=3, column=1, padx=5, pady=0)
+            loginSzoveg3 = Label(ablak1, text="Kérlek add meg a jelszavad újra", font=('Helvetica bold', 12))
+            loginSzoveg3.grid(row=3, column=1, padx=5, pady=0)
 
-        loginEntry3 = Entry(ablak1)
-        loginEntry3.grid(row=3, column=2)
+            loginEntry3 = Entry(ablak1)
+            loginEntry3.grid(row=3, column=2)
 
-        gomb = Button(ablak1, font=('Helvetica bold', 16), text="Regisztrálok!", command=lambda: auth_regisztracio(
-            #ahol:
-            ablak1 = ablak1,
-            nev = loginEntry.get(),
-            jelszo = loginEntry2.get(),
-            jelszo_ujra = loginEntry3.get()
+            gomb = Button(ablak1, font=('Helvetica bold', 16), text="Regisztrálok!", command=lambda: auth_regisztracio(
+                #ahol:
+                ablak1 = ablak1,
+                nev = loginEntry.get(),
+                jelszo = loginEntry2.get(),
+                jelszo_ujra = loginEntry3.get()
 
-        ))
-        gomb.grid(row=4, columnspan=2, column=1, pady=10)
+            ))
+            gomb.grid(row=4, columnspan=2, column=1, pady=10)
+
+            ablak1.mainloop()
     else:
         #ugye ekkor vendégként van belpéve! (False-False)
-        
-        start("Vendég")
-        ablak1.destroy()
-        
-    ablak1.mainloop()
+        osszes_adat = database.child("Osszes_pontszam").get().val()
+        start("Vendég", osszes_adat)
