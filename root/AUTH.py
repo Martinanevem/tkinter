@@ -160,4 +160,4 @@ def authAblak(bejelentkezes=False, regisztracio=False):
     else:
         #ugye ekkor vendégként van belpéve! (False-False)
         osszes_adat = database.child("Osszes_pontszam").get().val()
-        start("Vendég", osszes_adat)
+        start("Vendég", osszes_adat, "ÜRES")
