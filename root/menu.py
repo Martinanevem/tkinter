@@ -58,11 +58,44 @@ def menu(ablak1, bejelentkezve, titkos_adatok):
 	fajl.add_command(label="Kilepes",command=ablak1.destroy)
 	fajl.add_command(label="Export",command=ablak1.destroy)
 	fajl.add_command(label="Import",command=ablak1.destroy)
-	jatek.add_command(label="Akasztófa",command=akasztofa_start)
-	jatek.add_command(label="Brick Breaker",command=ablak1.destroy)
-	jatek.add_command(label="Kő, Papír, Olló",command=ablak1.destroy)
-	jatek.add_command(label="Számkitalálós",command=ablak1.destroy)
-	jatek.add_command(label="Snake",command=ablak1.destroy)
+	sub_menu = Menu(jatek, tearoff=0)
+	sub_menu.add_command(label='Indítás',command=akasztofa_start)
+	sub_menu.add_command(label='Statisztikák')
+	jatek.add_cascade(
+		label="Akasztófa",
+		menu=sub_menu
+	)
+
+	sub_menu1 = Menu(jatek, tearoff=0)
+	sub_menu1.add_command(label='Indítás')
+	sub_menu1.add_command(label='Statisztikák')
+	jatek.add_cascade(
+		label="Brick Breaker",
+		menu=sub_menu1
+	)
+	sub_menu2 = Menu(jatek, tearoff=0)
+	sub_menu2.add_command(label='Indítás')
+	sub_menu2.add_command(label='Statisztikák')
+	jatek.add_cascade(
+		label="Kő, Papír, Olló",
+		menu=sub_menu2
+	)
+
+	sub_menu3 = Menu(jatek, tearoff=0)
+	sub_menu3.add_command(label='Indítás')
+	sub_menu3.add_command(label='Statisztikák')
+	jatek.add_cascade(
+		label="Számkitalálós",
+		menu=sub_menu3
+	)
+	sub_menu4 = Menu(jatek, tearoff=0)
+	sub_menu4.add_command(label='Indítás')
+	sub_menu4.add_command(label='Statisztikák')
+	jatek.add_cascade(
+		label="Snake",
+		menu=sub_menu4
+	)
+	
 	jatek.add_cascade(label = "Játékok", menu = menu1)
 	matek.add_command(label="Számológép")
 	matek.add_command(label="Kerület Terület")
