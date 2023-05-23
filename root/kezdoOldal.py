@@ -3,6 +3,9 @@ from AUTH import *
 from menu import *
 from kezdes import start
 
+
+import os
+
 def bejelentkezes():
     ablak1.destroy()
     authAblak(bejelentkezes=True)
@@ -11,6 +14,8 @@ def regisztracio():
 def vendeg():
     ablak1.destroy()
     authAblak(regisztracio=False)
+
+
 
 
 

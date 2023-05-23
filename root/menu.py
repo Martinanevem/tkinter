@@ -3,27 +3,48 @@ import os
 import subprocess
 
 from profil import profil_szerkesztes
+from matek.turtle import test
+
+
+import sys
 
 def menu(ablak1, bejelentkezve, titkos_adatok):
 
 	#GAME részleg:
 	def akasztofa_start():
 		try:
-			new_path = "./games/akasztofa"
-			os.chdir(new_path)
-			subprocess.run(["python", "./akasztofa.py"])
+			venv_path = "virtualis_kornyezet"
+			scripts_path = os.path.join(venv_path, "Scripts")
+			python_path = os.path.join(scripts_path, "python")
+
+			game_path = os.path.join("games", "akasztofa")
+			
+			kezdoOldal_path = os.path.join(game_path, "akasztofa.py")
+			subprocess.run([python_path, kezdoOldal_path], shell=True)
 		except:
-			subprocess.run(["python", "./akasztofa.py"])
+			venv_path = "virtualis_kornyezet"
+			scripts_path = os.path.join(venv_path, "Scripts")
+			python_path = os.path.join(scripts_path, "python")
+
+			game_path = os.path.join("games")
+			kezdoOldal_path = os.path.join(game_path, "akasztofa.py")
+			subprocess.run([python_path, kezdoOldal_path], shell=True)
 	#GAME részleg vége-------------------------------------
 	
 	#MATEK részleg
+
 	def turtle_start():
-		try:
-			new_path = "./matek"
-			os.chdir(new_path)
-			subprocess.run(["python", "./turtle.py"])
-		except:
-			subprocess.run(["python", "./turtle.py"])
+		current_directory = os.getcwd()
+		new_directory = '/matek'
+		valami = os.chdir(new_directory)
+		print(valami)
+		'''
+		python_path = sys.path.append('./matek')
+		print(python_path)
+		#subprocess.run([sys.executable, f"{python_path}/turtle.py"])
+		'''
+
+
 	#MATEK részleg vége------------------------------------
 
 	def profil_start():
