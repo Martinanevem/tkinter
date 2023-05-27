@@ -3,7 +3,6 @@ import os
 import subprocess
 
 from profil import profil_szerkesztes
-from matek.turtle import test
 
 
 import sys
@@ -29,20 +28,34 @@ def menu(ablak1, bejelentkezve, titkos_adatok):
 			game_path = os.path.join("games")
 			kezdoOldal_path = os.path.join(game_path, "akasztofa.py")
 			subprocess.run([python_path, kezdoOldal_path], shell=True)
+
+	def akasztofa_statisztika():
+		try:
+			venv_path = "virtualis_kornyezet"
+			scripts_path = os.path.join(venv_path, "Scripts")
+			python_path = os.path.join(scripts_path, "python")
+
+			game_path = os.path.join("games", "akasztofa")
+			
+			kezdoOldal_path = os.path.join(game_path, "akasztofa_statisztika.py")
+			subprocess.run([python_path, kezdoOldal_path], shell=True)
+		except:
+			venv_path = "virtualis_kornyezet"
+			scripts_path = os.path.join(venv_path, "Scripts")
+			python_path = os.path.join(scripts_path, "python")
+
+			game_path = os.path.join("games")
+			kezdoOldal_path = os.path.join(game_path, "akasztofa_statisztika.py")
+			subprocess.run([python_path, kezdoOldal_path], shell=True)
 	#GAME részleg vége-------------------------------------
 	
 	#MATEK részleg
 
 	def turtle_start():
-		current_directory = os.getcwd()
-		new_directory = '/matek'
-		valami = os.chdir(new_directory)
-		print(valami)
-		'''
-		python_path = sys.path.append('./matek')
-		print(python_path)
-		#subprocess.run([sys.executable, f"{python_path}/turtle.py"])
-		'''
+		try:
+			subprocess.run(["python", "./matek/turtle.py"])
+		except:
+			subprocess.run(["python", "./matek/turtle.py"])
 
 
 	#MATEK részleg vége------------------------------------
@@ -55,25 +68,36 @@ def menu(ablak1, bejelentkezve, titkos_adatok):
 		
 		
 
-	menusor=Frame(ablak1)
-	menusor.grid(row=0)
-	menu0=Menubutton(menusor,text="Fájlok",underline=0)
-	menu1=Menubutton(menusor,text="Játékok",underline=0)
-	menu2=Menubutton(menusor,text="Matematika",underline=0)
-	if bejelentkezve: menu3=Menubutton(menusor,text="Profil",underline=0)
-	menu4=Menubutton(menusor,text="Rólunk",underline=0)
-	menu0.grid(row=0, column=0)
+	menusor = Frame(ablak1)
+	menusor.grid(row=0, sticky="ew")  # Place the frame in the first row and make it expand horizontally
 
-	menu1.grid(row=0, column=1)
-	menu2.grid(row=0, column=2)
-	if bejelentkezve: menu3.grid(row=0, column=3)
-	menu4.grid(row=0, column=4)
+	menu0 = Menubutton(menusor, text="Fájlok", underline=0)
+	menu1 = Menubutton(menusor, text="Játékok", underline=0)
+	menu2 = Menubutton(menusor, text="Matematika", underline=0)
+	if bejelentkezve:
+		menu3 = Menubutton(menusor, text="Profil", underline=0)
+	else: menu3 = Menubutton(menusor, text="Profil", underline=0)
+	menu4 = Menubutton(menusor, text="Rólunk", underline=0)
+
+	menu0.grid(row=0, column=0, sticky="ew")
+	menu1.grid(row=0, column=1, sticky="ew")
+	menu2.grid(row=0, column=2, sticky="ew")
+	if bejelentkezve:
+		menu3.grid(row=0, column=3, sticky="ew")
+	else: menu3.grid(row=0, column=3, sticky="ew")
+	menu4.grid(row=0, column=4, sticky="ew")
+
+	menusor.grid_columnconfigure((0, 1, 2, 3, 4), weight=1)  # Make all columns expand to fill the available space
+
+
+
 
 
 	fajl=Menu(menu0, tearoff="off")
 	jatek=Menu(menu1, tearoff="off")
 	matek=Menu(menu2, tearoff="off")
 	if bejelentkezve: profil=Menu(menu3, tearoff="off")
+	else: profil=Menu(menu3, tearoff="off")
 	rolunk=Menu(menu4, tearoff="off")
 
 	fajl.add_command(label="Kilepes",command=ablak1.destroy)
@@ -81,7 +105,7 @@ def menu(ablak1, bejelentkezve, titkos_adatok):
 	fajl.add_command(label="Import",command=ablak1.destroy)
 	sub_menu = Menu(jatek, tearoff=0)
 	sub_menu.add_command(label='Indítás',command=akasztofa_start)
-	sub_menu.add_command(label='Statisztikák')
+	sub_menu.add_command(label='Statisztikák', command=akasztofa_statisztika)
 	jatek.add_cascade(
 		label="Akasztófa",
 		menu=sub_menu
@@ -125,6 +149,7 @@ def menu(ablak1, bejelentkezve, titkos_adatok):
 		profil.add_command(label="Testreszabás", command=lambda:profil_szerkesztes(titkos_adatok[0], titkos_adatok[1], titkos_adatok[2]))
 		profil.add_command(label="Ranglista")
 		profil.add_command(label="Kijelentkezés")
+
 	rolunk.add_command(label="A programot készítette:")
 	rolunk.add_command(label="Basa Martin")
 	rolunk.add_command(label="Dóczi Adrián Márk")
@@ -141,4 +166,5 @@ def menu(ablak1, bejelentkezve, titkos_adatok):
 	menu1.config(menu=jatek, bg="BLACK",fg="WHITE")
 	menu2.config(menu=matek, bg="BLACK",fg="WHITE")
 	if bejelentkezve: menu3.config(menu=profil, bg="BLACK",fg="WHITE")
+	else: menu3.config(menu=profil, bg="BLACK",fg="WHITE", state=DISABLED)
 	menu4.config(menu=rolunk, bg="BLACK",fg="WHITE")

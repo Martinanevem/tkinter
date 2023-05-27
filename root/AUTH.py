@@ -45,6 +45,8 @@ def auth_bejelentkezes(ablak1, nev, jelszo):
                 if key == search_key:
                     hely = index
             titkos_adatok = [adatok[0], bio, hely]
+            adatok_irasa = open("adatok.txt", "w", encoding="UTF-8")
+            adatok_irasa.write(adatok[0])
             ablak1.destroy()
             start(nev, osszes_adat, titkos_adatok)
             
@@ -53,41 +55,48 @@ def auth_bejelentkezes(ablak1, nev, jelszo):
         hiba = Label(ablak1, fg="RED", text="Helytelen felhasználónév/jelszó!").grid(row=5, column=1, columnspan=4)
 
 def auth_regisztracio(ablak1, nev, jelszo, jelszo_ujra):
+    folytatas = True
     adatok = list()
     adatok.append(nev);adatok.append(jelszo)
 
     user = adatok[0]
     password = adatok[1]
 
-    
-
-    if user.isspace() or len(user) < 3 or len(user) > 16:
-        try:
-            hiba.destroy()
-        except:
-            hiba = Label(ablak1, fg="RED", text="A felhasználónév helytelen!").grid(row=5, column=1, columnspan=3)
-    elif jelszo != jelszo_ujra:
-        try:
-            hiba.destroy()
-        except:
-            hiba = Label(ablak1, fg="RED", text="Sajnos a két jelszó nem egyezik!").grid(row=5, column=1, columnspan=3)
-    elif len(password) < 8:
-        try:
-            hiba.destroy()
-        except:
-            hiba = Label(ablak1, fg="RED", text="Sajnos nem elég hosszú jelszó!").grid(row=5, column=1, columnspan=3)
-    elif not any(char.isdigit() for char in password) or not any(char.isalpha() for char in password) or not any(char.isupper() for char in password) \
-    or password.isspace():
-        try:
-            hiba.destroy()
-        except:
-            hiba = Label(ablak1, fg="RED", text="Nem elég erős jelszó!").grid(row=5, column=1, columnspan=3)
-    else: #ekkor végre mindent jól csinált a felhasználó
-        veges_adatok = {user: password}
-        database.child("Users").update(veges_adatok)
-        database.child("Kigyos_jatek").update(veges_adatok)
-        database.child("Osszes_pontszam").update({user: 0})
-        ablak1.destroy()
+    osszes_adat = database.child("Users").get().val()
+    for key, value in osszes_adat.items():
+        if key == adatok[0]:
+            hiba = Label(ablak1, fg="RED", text="Hiba történt: a felhasználónév foglalt!!!").grid(row=5, column=1, columnspan=3)
+            folytatas = False
+            
+    if folytatas:
+        if user.isspace() or len(user) < 3 or len(user) > 16:
+            try:
+                hiba.destroy()
+            except:
+                hiba = Label(ablak1, fg="RED", text="A felhasználónév helytelen!").grid(row=5, column=1, columnspan=3)
+        elif jelszo != jelszo_ujra:
+            try:
+                hiba.destroy()
+            except:
+                hiba = Label(ablak1, fg="RED", text="Sajnos a két jelszó nem egyezik!").grid(row=5, column=1, columnspan=3)
+        elif len(password) < 8:
+            try:
+                hiba.destroy()
+            except:
+                hiba = Label(ablak1, fg="RED", text="Sajnos nem elég hosszú jelszó!").grid(row=5, column=1, columnspan=3)
+        elif not any(char.isdigit() for char in password) or not any(char.isalpha() for char in password) or not any(char.isupper() for char in password) \
+        or password.isspace():
+            try:
+                hiba.destroy()
+            except:
+                hiba = Label(ablak1, fg="RED", text="Nem elég erős jelszó!").grid(row=5, column=1, columnspan=3)
+        else: #ekkor végre mindent jól csinált a felhasználó
+            veges_adatok = {user: password}
+            database.child("Users").update(veges_adatok)
+            database.child("Kigyos_jatek").update(veges_adatok)
+            database.child("Osszes_pontszam").update({user: 0})
+            database.child("Akasztofa").update({user: 0})
+            ablak1.destroy()
 
 
 def authAblak(bejelentkezes=False, regisztracio=False):

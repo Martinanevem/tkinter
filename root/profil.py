@@ -22,10 +22,9 @@ def profil_szerkesztes(jelszo, bio, hely):
     bemutatkoz_ki = Entry(ablak, text="")
     bemutatkoz_ki.insert(0, bio)
 
-    szerk = Button(ablak, text="Szerkeztés🖊", command=mentes)
+    szerk = Button(ablak, text="Alkalmazás 🖊", command=mentes)
     ranglista = Label(ablak, text="Jelenlegi ranglista helyezés:")
     ranglista_ki = Label(ablak, text=hely+1)
-    kijelent = Button(ablak, text="Kijelentkezés🚪", command=ablak.destroy)
 
     jelszo.grid(row=1, column=1)
     jelszo_ki.grid(row=1, column=2)
@@ -34,4 +33,3 @@ def profil_szerkesztes(jelszo, bio, hely):
     szerk.grid(row=2, column=3)
     ranglista.grid(row=3, column=1)
     ranglista_ki.grid(row=3, column=2)
-    kijelent.grid(row=4, column=3)

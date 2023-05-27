@@ -5,15 +5,37 @@ import random
 
 from time import sleep
 
+import os
+
+
+#mukodni fog?
+import pyrebase
+
 
 class Akasztofa:
     def __init__(self):
+
+        #teszt
+
+
+
+        
+
+        
+
         self.window = tk.Tk()
         self.window.title("Akasztófa")
         self.window.geometry("400x520")
 
         self.keresendo_betuk = []
-        f = open('szavak.json', 'r', encoding='utf-8')
+        current_directory = os.path.dirname(os.path.abspath(__file__))
+        kepek_folder_path = os.path.join(current_directory, '..', '..', 'kepek')
+        kepek_folder_path = os.path.normpath(kepek_folder_path)
+        image_file_path = os.path.join(kepek_folder_path, 'komponensek', 'szavak.json')
+
+        
+        
+        f = open(image_file_path, 'r', encoding='utf-8')
         self.szavak = json.load(f)
 
         kategoria_valasztas = [self.szavak["targyak"], self.szavak["allatok"]]
@@ -32,8 +54,13 @@ class Akasztofa:
         self.maxTippek = 6
         self.jelenlegi_tippek = 0
 
+        current_directory = os.path.dirname(os.path.abspath(__file__))
+        kepek_folder_path = os.path.join(current_directory, '..', '..', 'kepek')
+        kepek_folder_path = os.path.normpath(kepek_folder_path)
+
+
         self.can1 = Canvas(self.window, width=440, height=360, bg='white')
-        self.photo = PhotoImage(file='./kepek/hang5.png')
+        self.photo = PhotoImage(file=os.path.join(kepek_folder_path, 'kepek', 'hang5.png'))
         self.item = self.can1.create_image(220, 200, image=self.photo)
         self.can1.grid(row=0, column=2, columnspan=2)
 
@@ -66,24 +93,27 @@ class Akasztofa:
         self.window.mainloop()
 
     def update_img(self):
+        current_directory = os.path.dirname(os.path.abspath(__file__))
+        kepek_folder_path = os.path.join(current_directory, '..', '..', 'kepek')
+        kepek_folder_path = os.path.normpath(kepek_folder_path)
         try:
             if self.jelenlegi_tippek == 1:
-                self.photo = PhotoImage(file='./kepek/hang6.png')
+                self.photo = PhotoImage(file=os.path.join(kepek_folder_path, 'kepek', 'hang6.png'))
             elif self.jelenlegi_tippek == 2:
-                self.photo = PhotoImage(file='./kepek/hang7.png')
+                self.photo = PhotoImage(file=os.path.join(kepek_folder_path, 'kepek', 'hang7.png'))
             elif self.jelenlegi_tippek == 3:
-                self.photo = PhotoImage(file='./kepek/hang8.png')
+                self.photo = PhotoImage(file=os.path.join(kepek_folder_path, 'kepek', 'hang8.png'))
             elif self.jelenlegi_tippek == 4:
-                self.photo = PhotoImage(file='./kepek/hang9.png')
+                self.photo = PhotoImage(file=os.path.join(kepek_folder_path, 'kepek', 'hang9.png'))
             elif self.jelenlegi_tippek == 5:
-                self.photo = PhotoImage(file='./kepek/hang10.png')
+                self.photo = PhotoImage(file=os.path.join(kepek_folder_path, 'kepek', 'hang10.png'))
             elif self.jelenlegi_tippek == 6:
-                self.photo = PhotoImage(file='./kepek/hang11.png')
+                self.photo = PhotoImage(file=os.path.join(kepek_folder_path, 'kepek', 'hang11.png'))
 
             self.can1.itemconfig(self.item, image=self.photo)
             self.can1.image = self.photo
         except:
-            self.can1.image = self.photo = PhotoImage(file='./kepek/hang5.png')
+            self.can1.image = self.photo = PhotoImage(file=os.path.join(kepek_folder_path, 'kepek', 'hang5.png'))
 
     def check_guess(self):
         tipp = self.entry_guess.get()
@@ -97,9 +127,9 @@ class Akasztofa:
             self.label_feedback.config(text="Ezzel a betűvel már próbálkoztál!")
         else:
             if tipp in self.szo:
-                for i in self.keresendo_betuk:
-                    if i == tipp:
-                        self.keresendo_betuk.remove(i)
+                if 2 == 2:
+                    self.keresendo_betuk = [i for i in self.keresendo_betuk if i != tipp]
+                    print(self.keresendo_betuk)
                 if len(self.keresendo_betuk) == 0:
                     self.vege(False)
                 self.megtalalt_betuk.append(tipp)
@@ -128,6 +158,9 @@ class Akasztofa:
     
 
     def kepes_segitseg2(self):
+        current_directory = os.path.dirname(os.path.abspath(__file__))
+        kepek_folder_path = os.path.join(current_directory, '..', '..', 'kepek')
+        kepek_folder_path = os.path.normpath(kepek_folder_path)
         if self.kepes_segitseg != False:
             self.kepes_ablak = tk.Toplevel()  # Use Toplevel instead of Tk
             self.kepes_ablak.title("Képes segítség")  # Call title as a method
@@ -135,14 +168,14 @@ class Akasztofa:
             self.kepek = Canvas(self.kepes_ablak, width=440, height=360, bg='white')
             
         
-            if self.szo == self.szavak["targyak"][0]: self.photo2 = PhotoImage(file='./skepek/t0.png')
-            elif self.szo == self.szavak["targyak"][1]: self.photo2 = PhotoImage(file='./skepek/t1.png')
-            elif self.szo == self.szavak["targyak"][2]: self.photo2 = PhotoImage(file='./skepek/t2.png')
-            elif self.szo == self.szavak["targyak"][3]: self.photo2 = PhotoImage(file='./skepek/t3.png')
-            elif self.szo == self.szavak["targyak"][4]: self.photo2 = PhotoImage(file='./skepek/t4.png')
-            elif self.szo == self.szavak["allatok"][0]: self.photo2 = PhotoImage(file='./skepek/a1.png')
-            elif self.szo == self.szavak["allatok"][1]: self.photo2 = PhotoImage(file='./skepek/a2.png')
-            elif self.szo == self.szavak["allatok"][2]: self.photo2 = PhotoImage(file='./skepek/a3.png')
+            if self.szo == self.szavak["targyak"][0]: self.photo2 = PhotoImage(file=os.path.join(kepek_folder_path, 'skepek', 't0.png'))
+            elif self.szo == self.szavak["targyak"][1]: self.photo2 = PhotoImage(file=os.path.join(kepek_folder_path, 'skepek', 't1.png'))
+            elif self.szo == self.szavak["targyak"][2]: self.photo2 = PhotoImage(file=os.path.join(kepek_folder_path, 'skepek', 't2.png'))
+            elif self.szo == self.szavak["targyak"][3]: self.photo2 = PhotoImage(file=os.path.join(kepek_folder_path, 'skepek', 't3.png'))
+            elif self.szo == self.szavak["targyak"][4]: self.photo2 = PhotoImage(file=os.path.join(kepek_folder_path, 'skepek', 't4.png'))
+            elif self.szo == self.szavak["allatok"][0]: self.photo2 = PhotoImage(file=os.path.join(kepek_folder_path, 'skepek', 'a1.png'))
+            elif self.szo == self.szavak["allatok"][1]: self.photo2 = PhotoImage(file=os.path.join(kepek_folder_path, 'skepek', 'a2.png'))
+            elif self.szo == self.szavak["allatok"][2]: self.photo2 = PhotoImage(file=os.path.join(kepek_folder_path, 'skepek', 'a3.png'))
 
             self.item = self.kepek.create_image(220, 200, image=self.photo2)
             self.kepek.grid(row=0, column=2, columnspan=2)
@@ -253,9 +286,47 @@ class Akasztofa:
 
 
     def vege(self, vesztett):
+        config = {
+        "apiKey": "AIzaSyCsLNLdZWJ5RtPeXSdOraiE83g87HOAW_w",
+        "authDomain": "authfortkinter.firebaseapp.com",
+        "projectId": "authfortkinter",
+        "databaseURL": "https://authfortkinter-default-rtdb.europe-west1.firebasedatabase.app/",
+        "storageBucket": "authfortkinter.appspot.com",
+        "messagingSenderId": "132997432044",
+        "appId": "1:132997432044:web:b3f5e167ae61b0f5c0dbc9"
+        }
+
+        firebase = pyrebase.initialize_app(config)
+        database = firebase.database()
+        
+        jelenleg_itt_vagy = os.path.dirname(os.path.abspath(__file__))
+        a_mappa_helye = os.path.join(jelenleg_itt_vagy, '..', '..')
+        a_mappa_helye = os.path.normpath(a_mappa_helye)
+        a_fajl_helye = os.path.join(a_mappa_helye, 'adatok.txt')
+        jelenlegi_user = open(a_fajl_helye, "r", encoding="UTF-8")
+
+        user = jelenlegi_user.readline()
+    
         if vesztett:
             self.label_feedback.config(text="Vesztettél! A szó: '{}'".format(self.szo))
         else:
+            #ha nyert:
+            jelenlegi_pont = database.child('Osszes_pontszam').child(user).get().val()
+            if jelenlegi_pont is None:
+                jelenlegi_pont = 0
+            else:
+                jelenlegi_pont = int(jelenlegi_pont)
+            uj_pont = jelenlegi_pont + 1
+            database.child('Osszes_pontszam').child(user).set(uj_pont)
+
+            #csak az akasztofa ranglistan:
+            jelenlegi_pont_akasztofa = database.child('Akasztofa').child(user).get().val()
+            if jelenlegi_pont_akasztofa is None:
+                jelenlegi_pont_akasztofa = 0
+            else:
+                jelenlegi_pont_akasztofa = int(jelenlegi_pont_akasztofa)
+            uj_pont_akasztofa = jelenlegi_pont_akasztofa + 1
+            database.child('Akasztofa').child(user).set(uj_pont_akasztofa)
             self.label_feedback.config(text="Sikeresen kitaláltad a szót: '{}'".format(self.szo))
 
         self.entry_guess.config(state=tk.DISABLED)
