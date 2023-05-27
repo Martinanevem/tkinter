@@ -45,8 +45,8 @@ def auth_bejelentkezes(ablak1, nev, jelszo):
                 if key == search_key:
                     hely = index
             titkos_adatok = [adatok[0], bio, hely]
-            adatok_irasa = open("adatok.txt", "w", encoding="UTF-8")
-            adatok_irasa.write(adatok[0])
+            with open("adatok.txt", "w", encoding="UTF-8") as adatok_irasa:
+                adatok_irasa.write(adatok[0])
             ablak1.destroy()
             start(nev, osszes_adat, titkos_adatok)
             
@@ -96,6 +96,7 @@ def auth_regisztracio(ablak1, nev, jelszo, jelszo_ujra):
             database.child("Kigyos_jatek").update(veges_adatok)
             database.child("Osszes_pontszam").update({user: 0})
             database.child("Akasztofa").update({user: 0})
+            database.child("Teglatoro").update({user: 0})
             ablak1.destroy()
 
 

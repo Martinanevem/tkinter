@@ -47,6 +47,44 @@ def menu(ablak1, bejelentkezve, titkos_adatok):
 			game_path = os.path.join("games")
 			kezdoOldal_path = os.path.join(game_path, "akasztofa_statisztika.py")
 			subprocess.run([python_path, kezdoOldal_path], shell=True)
+
+	def teglatoro_start():
+		try:
+			venv_path = "virtualis_kornyezet"
+			scripts_path = os.path.join(venv_path, "Scripts")
+			python_path = os.path.join(scripts_path, "python")
+
+			game_path = os.path.join("games", "brickBraker_teglatoro")
+			
+			kezdoOldal_path = os.path.join(game_path, "teglatoro.py")
+			subprocess.run([python_path, kezdoOldal_path], shell=True)
+		except:
+			venv_path = "virtualis_kornyezet"
+			scripts_path = os.path.join(venv_path, "Scripts")
+			python_path = os.path.join(scripts_path, "python")
+
+			game_path = os.path.join("games")
+			kezdoOldal_path = os.path.join(game_path, "teglatoro.py")
+			subprocess.run([python_path, kezdoOldal_path], shell=True)
+
+	def teglatoro_statisztika():
+		try:
+			venv_path = "virtualis_kornyezet"
+			scripts_path = os.path.join(venv_path, "Scripts")
+			python_path = os.path.join(scripts_path, "python")
+
+			game_path = os.path.join("games", "brickBraker_teglatoro")
+			
+			kezdoOldal_path = os.path.join(game_path, "teglatoro_statisztika.py")
+			subprocess.run([python_path, kezdoOldal_path], shell=True)
+		except:
+			venv_path = "virtualis_kornyezet"
+			scripts_path = os.path.join(venv_path, "Scripts")
+			python_path = os.path.join(scripts_path, "python")
+
+			game_path = os.path.join("games")
+			kezdoOldal_path = os.path.join(game_path, "teglatoro_statisztika.py")
+			subprocess.run([python_path, kezdoOldal_path], shell=True)
 	#GAME részleg vége-------------------------------------
 	
 	#MATEK részleg
@@ -112,8 +150,8 @@ def menu(ablak1, bejelentkezve, titkos_adatok):
 	)
 
 	sub_menu1 = Menu(jatek, tearoff=0)
-	sub_menu1.add_command(label='Indítás')
-	sub_menu1.add_command(label='Statisztikák')
+	sub_menu1.add_command(label='Indítás', command=teglatoro_start)
+	sub_menu1.add_command(label='Statisztikák', command=teglatoro_statisztika)
 	jatek.add_cascade(
 		label="Brick Breaker",
 		menu=sub_menu1
