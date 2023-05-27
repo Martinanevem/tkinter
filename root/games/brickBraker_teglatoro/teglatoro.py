@@ -198,25 +198,27 @@ class Game(tk.Frame):
             jelenlegi_user = open(a_fajl_helye, "r", encoding="UTF-8")
             user = jelenlegi_user.readline()
 
-            #ha nyert:
-            jelenlegi_pont = database.child('Osszes_pontszam').child(user).get().val()
-            if jelenlegi_pont is None:
-                jelenlegi_pont = 0
-            else:
-                jelenlegi_pont = int(jelenlegi_pont)
-            uj_pont = jelenlegi_pont + 1
-            database.child('Osszes_pontszam').child(user).set(uj_pont)
+            if user != "Vendég":
 
-            #csak az akasztofa ranglistan:
-            jelenlegi_pont_teglatoro = database.child('Teglatoro').child(user).get().val()
-            
-            if jelenlegi_pont_teglatoro is None:
-                jelenlegi_pont_teglatoro = 0
-            else:
-                jelenlegi_pont_teglatoro = jelenlegi_pont_teglatoro
-            
-            uj_pont_teglatoro = jelenlegi_pont_teglatoro + 1
-            database.child('Teglatoro').child(user).set(uj_pont_teglatoro)
+                #ha nyert:
+                jelenlegi_pont = database.child('Osszes_pontszam').child(user).get().val()
+                if jelenlegi_pont is None:
+                    jelenlegi_pont = 0
+                else:
+                    jelenlegi_pont = int(jelenlegi_pont)
+                uj_pont = jelenlegi_pont + 1
+                database.child('Osszes_pontszam').child(user).set(uj_pont)
+
+                #csak az akasztofa ranglistan:
+                jelenlegi_pont_teglatoro = database.child('Teglatoro').child(user).get().val()
+                
+                if jelenlegi_pont_teglatoro is None:
+                    jelenlegi_pont_teglatoro = 0
+                else:
+                    jelenlegi_pont_teglatoro = jelenlegi_pont_teglatoro
+                
+                uj_pont_teglatoro = jelenlegi_pont_teglatoro + 1
+                database.child('Teglatoro').child(user).set(uj_pont_teglatoro)
 
             self.draw_text(300, 200, 'Nyertél!')
         elif self.ball.get_position()[3] >= self.height: 

@@ -41,7 +41,6 @@ class Turtle:
         self.turtle_y = self.canvas_height / 2
         self.turtle_angle = 0
 
-        # bind key events
         self.canvas.focus_set()
         self.canvas.bind("<Up>", self.move_forward)
         self.canvas.bind("w", self.move_forward)
@@ -181,9 +180,8 @@ class Turtle:
     def show_info_messagebox(self):
         info_window = tk.Toplevel(self.window)
         info_window.title("Turtle")
-        info_window.geometry("250x200")  # Set the info_window size to 300x300
+        info_window.geometry("250x200")
 
-        # Center the info_window on the screen
         screen_width = info_window.winfo_screenwidth()
         screen_height = info_window.winfo_screenheight()
         x_coordinate = int((screen_width / 2) - (250 / 2))
@@ -198,7 +196,6 @@ class Turtle:
         ok_button = tk.Button(info_window, text="OK", command=info_window.destroy, fg="blue", height=2, width=10)
         ok_button.pack(pady=10)
 
-        # Force the info_window to be on top
         info_window.attributes("-topmost", True)
 
     def start(self):

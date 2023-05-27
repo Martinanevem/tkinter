@@ -83,7 +83,7 @@ class Akasztofa:
         self.button_guess2 = tk.Button(self.window, fg="WHITE", bg="BLACK", text="Segítség", command=self.segitseg)
         self.button_guess2.grid(row=4, column=3, padx=(0, 150))
 
-        # Additional empty label to center the buttons
+
         self.empty_label = tk.Label(self.window)
         self.empty_label.grid(row=4, column=1)
 
@@ -162,8 +162,8 @@ class Akasztofa:
         kepek_folder_path = os.path.join(current_directory, '..', '..', 'kepek')
         kepek_folder_path = os.path.normpath(kepek_folder_path)
         if self.kepes_segitseg != False:
-            self.kepes_ablak = tk.Toplevel()  # Use Toplevel instead of Tk
-            self.kepes_ablak.title("Képes segítség")  # Call title as a method
+            self.kepes_ablak = tk.Toplevel() 
+            self.kepes_ablak.title("Képes segítség")
 
             self.kepek = Canvas(self.kepes_ablak, width=440, height=360, bg='white')
             
@@ -306,27 +306,30 @@ class Akasztofa:
         jelenlegi_user = open(a_fajl_helye, "r", encoding="UTF-8")
 
         user = jelenlegi_user.readline()
+
+        
     
         if vesztett:
             self.label_feedback.config(text="Vesztettél! A szó: '{}'".format(self.szo))
         else:
             #ha nyert:
-            jelenlegi_pont = database.child('Osszes_pontszam').child(user).get().val()
-            if jelenlegi_pont is None:
-                jelenlegi_pont = 0
-            else:
-                jelenlegi_pont = int(jelenlegi_pont)
-            uj_pont = jelenlegi_pont + 1
-            database.child('Osszes_pontszam').child(user).set(uj_pont)
+            if user != "Vendég":
+                jelenlegi_pont = database.child('Osszes_pontszam').child(user).get().val()
+                if jelenlegi_pont is None:
+                    jelenlegi_pont = 0
+                else:
+                    jelenlegi_pont = int(jelenlegi_pont)
+                uj_pont = jelenlegi_pont + 1
+                database.child('Osszes_pontszam').child(user).set(uj_pont)
 
-            #csak az akasztofa ranglistan:
-            jelenlegi_pont_akasztofa = database.child('Akasztofa').child(user).get().val()
-            if jelenlegi_pont_akasztofa is None:
-                jelenlegi_pont_akasztofa = 0
-            else:
-                jelenlegi_pont_akasztofa = int(jelenlegi_pont_akasztofa)
-            uj_pont_akasztofa = jelenlegi_pont_akasztofa + 1
-            database.child('Akasztofa').child(user).set(uj_pont_akasztofa)
+                #csak az akasztofa ranglistan:
+                jelenlegi_pont_akasztofa = database.child('Akasztofa').child(user).get().val()
+                if jelenlegi_pont_akasztofa is None:
+                    jelenlegi_pont_akasztofa = 0
+                else:
+                    jelenlegi_pont_akasztofa = int(jelenlegi_pont_akasztofa)
+                uj_pont_akasztofa = jelenlegi_pont_akasztofa + 1
+                database.child('Akasztofa').child(user).set(uj_pont_akasztofa)
             self.label_feedback.config(text="Sikeresen kitaláltad a szót: '{}'".format(self.szo))
 
         self.entry_guess.config(state=tk.DISABLED)

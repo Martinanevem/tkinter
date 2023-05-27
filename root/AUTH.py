@@ -169,5 +169,8 @@ def authAblak(bejelentkezes=False, regisztracio=False):
             ablak1.mainloop()
     else:
         #ugye ekkor vendégként van belpéve! (False-False)
+        with open("adatok.txt", "w", encoding="UTF-8") as adatok_irasa:
+                adatok_irasa.write("Vendég")
         osszes_adat = database.child("Osszes_pontszam").get().val()
         start("Vendég", osszes_adat, "ÜRES")
+        

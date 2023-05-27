@@ -16,7 +16,7 @@ def start(nev, adatok, titkos_adatok):
 
     if bejelentkezve:
         fnev = Label(ablak1, text=f"Üdvözöllek, {nev}!")
-        fnev.grid(row=1, column=0, columnspan=2, sticky="ew", pady=10)  # Center the label horizontally and add vertical padding
+        fnev.grid(row=1, column=0, columnspan=2, sticky="ew", pady=10) 
         warn_szoveg = Label(ablak1, text=f"Adataid mentve lesznek az adatbázisba!", bg="GREEN")
         warn_szoveg.grid(row=2, column=0, columnspan=2, sticky="ew", pady=5)
 
@@ -24,10 +24,10 @@ def start(nev, adatok, titkos_adatok):
         fnev = Label(ablak1, text=f"{nev} vagy!")
         fnev.grid(row=1, column=0, columnspan=2, sticky="ew", pady=10)
         warn_szoveg_vendeg = Label(ablak1, text=f"Adataid nem lesznek mentve az adatbázisba!", bg="RED")
-        warn_szoveg_vendeg.grid(row=2, column=0, columnspan=2, sticky="ew", pady=5)  # Center the label horizontally and add vertical padding
+        warn_szoveg_vendeg.grid(row=2, column=0, columnspan=2, sticky="ew", pady=5)
 
     ranglista_szoveg = Label(ablak1, text="Top helyezés:", font=('Helvetica bold', 16))
-    ranglista_szoveg.grid(row=3, column=0, columnspan=2, sticky="ew", pady=10)  # Center the label horizontally and add vertical padding
+    ranglista_szoveg.grid(row=3, column=0, columnspan=2, sticky="ew", pady=10)
 
     rows = [[key, value] for key, value in sorted(adatok.items(), key=lambda x: x[1], reverse=True)]
     table_str = tabulate(rows, headers=["Játékos", "Pontok"], tablefmt="org")
