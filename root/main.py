@@ -1,6 +1,7 @@
 import os
 import subprocess
 
+
 def installs():
     venv_path = "virtualis_kornyezet"
     scripts_path = os.path.join(venv_path, "Scripts")
@@ -29,5 +30,6 @@ def check_packages():
             fajl.truncate()
         else:
             start()
+
 
 check_packages()

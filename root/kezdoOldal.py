@@ -3,8 +3,12 @@ from AUTH import *
 from menu import *
 from kezdes import start
 
-
 import os
+
+def keep_window_on_top(window):
+    window.attributes('-topmost', True)
+
+
 
 def bejelentkezes():
     ablak1.destroy()
@@ -21,6 +25,7 @@ def vendeg():
 
 
 ablak1=Tk()
+keep_window_on_top(ablak1)
 ablak1.title("Folytatás mint...")
 ablak1.minsize(width=400,height=200)
 ablak1.columnconfigure(0, weight=1)
@@ -50,4 +55,3 @@ mondat2.grid(row=5,column=0)
 
 
 ablak1.mainloop()
-

@@ -103,7 +103,11 @@ def auth_regisztracio(ablak1, nev, jelszo, jelszo_ujra):
 def authAblak(bejelentkezes=False, regisztracio=False):
 
     if bejelentkezes == True or regisztracio == True:
+        def keep_window_on_top(window):
+            window.attributes('-topmost', True)
         ablak1 = Tk()
+
+        keep_window_on_top(ablak1)
 
         ablak1.title("Felhasználó hitelesítése")
         ablak1.geometry("400x200")
@@ -125,7 +129,7 @@ def authAblak(bejelentkezes=False, regisztracio=False):
             loginSzoveg2 = Label(ablak1, text="Kérlek add meg a jelszavad", font=('Helvetica bold', 12))
             loginSzoveg2.grid(row=2, column=1, padx=5, pady=5)
 
-            loginEntry2 = Entry(ablak1)
+            loginEntry2 = Entry(ablak1, show="⁇")
             loginEntry2.grid(row=2, column=2)
 
             gomb = Button(ablak1, font=('Helvetica bold', 16), text="Bejelentkezem!", command=lambda: auth_bejelentkezes(
@@ -147,13 +151,13 @@ def authAblak(bejelentkezes=False, regisztracio=False):
             loginSzoveg2 = Label(ablak1, text="Kérlek add meg a jelszavad", font=('Helvetica bold', 12))
             loginSzoveg2.grid(row=2, column=1, padx=5, pady=5)
 
-            loginEntry2 = Entry(ablak1)
+            loginEntry2 = Entry(ablak1, show="⁇")
             loginEntry2.grid(row=2, column=2)
 
             loginSzoveg3 = Label(ablak1, text="Kérlek add meg a jelszavad újra", font=('Helvetica bold', 12))
             loginSzoveg3.grid(row=3, column=1, padx=5, pady=0)
 
-            loginEntry3 = Entry(ablak1)
+            loginEntry3 = Entry(ablak1, show="⁇")
             loginEntry3.grid(row=3, column=2)
 
             gomb = Button(ablak1, font=('Helvetica bold', 16), text="Regisztrálok!", command=lambda: auth_regisztracio(
