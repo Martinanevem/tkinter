@@ -85,6 +85,45 @@ def menu(ablak1, bejelentkezve, titkos_adatok):
 			game_path = os.path.join("games")
 			kezdoOldal_path = os.path.join(game_path, "teglatoro_statisztika.py")
 			subprocess.run([python_path, kezdoOldal_path], shell=True)
+	
+
+	def snake_start():
+		try:
+			venv_path = "virtualis_kornyezet"
+			scripts_path = os.path.join(venv_path, "Scripts")
+			python_path = os.path.join(scripts_path, "python")
+
+			game_path = os.path.join("games", "kigyo")
+			
+			kezdoOldal_path = os.path.join(game_path, "kigyo.py")
+			subprocess.run([python_path, kezdoOldal_path], shell=True)
+		except:
+			venv_path = "virtualis_kornyezet"
+			scripts_path = os.path.join(venv_path, "Scripts")
+			python_path = os.path.join(scripts_path, "python")
+
+			game_path = os.path.join("games")
+			kezdoOldal_path = os.path.join(game_path, "kigyo.py")
+			subprocess.run([python_path, kezdoOldal_path], shell=True)
+	
+	def snake_statisztika():
+		try:
+			venv_path = "virtualis_kornyezet"
+			scripts_path = os.path.join(venv_path, "Scripts")
+			python_path = os.path.join(scripts_path, "python")
+
+			game_path = os.path.join("games", "kigyo")
+			
+			kezdoOldal_path = os.path.join(game_path, "kigyo_statisztika.py")
+			subprocess.run([python_path, kezdoOldal_path], shell=True)
+		except:
+			venv_path = "virtualis_kornyezet"
+			scripts_path = os.path.join(venv_path, "Scripts")
+			python_path = os.path.join(scripts_path, "python")
+
+			game_path = os.path.join("games")
+			kezdoOldal_path = os.path.join(game_path, "kigyo_statisztika.py")
+			subprocess.run([python_path, kezdoOldal_path], shell=True)
 	#GAME részleg vége-------------------------------------
 	
 	#MATEK részleg
@@ -142,6 +181,7 @@ def menu(ablak1, bejelentkezve, titkos_adatok):
 	fajl.add_command(label="Export",command=ablak1.destroy)
 	fajl.add_command(label="Import",command=ablak1.destroy)
 	sub_menu = Menu(jatek, tearoff=0)
+	sub_menu.add_command(label='Információk', command=teglatoro_statisztika)
 	sub_menu.add_command(label='Indítás',command=akasztofa_start)
 	sub_menu.add_command(label='Statisztikák', command=akasztofa_statisztika)
 	jatek.add_cascade(
@@ -150,6 +190,7 @@ def menu(ablak1, bejelentkezve, titkos_adatok):
 	)
 
 	sub_menu1 = Menu(jatek, tearoff=0)
+	sub_menu1.add_command(label='Információk', command=teglatoro_statisztika)
 	sub_menu1.add_command(label='Indítás', command=teglatoro_start)
 	sub_menu1.add_command(label='Statisztikák', command=teglatoro_statisztika)
 	jatek.add_cascade(
@@ -157,6 +198,7 @@ def menu(ablak1, bejelentkezve, titkos_adatok):
 		menu=sub_menu1
 	)
 	sub_menu2 = Menu(jatek, tearoff=0)
+	sub_menu2.add_command(label='Információk', command=teglatoro_statisztika)
 	sub_menu2.add_command(label='Indítás')
 	sub_menu2.add_command(label='Statisztikák')
 	jatek.add_cascade(
@@ -165,21 +207,23 @@ def menu(ablak1, bejelentkezve, titkos_adatok):
 	)
 
 	sub_menu3 = Menu(jatek, tearoff=0)
+	sub_menu3.add_command(label='Információk', command=teglatoro_statisztika)
 	sub_menu3.add_command(label='Indítás')
-	sub_menu3.add_command(label='Statisztikák')
+	sub_menu3.add_command(label='Statisztikák', command=teglatoro_statisztika)
 	jatek.add_cascade(
 		label="Számkitalálós",
 		menu=sub_menu3
 	)
 	sub_menu4 = Menu(jatek, tearoff=0)
-	sub_menu4.add_command(label='Indítás')
-	sub_menu4.add_command(label='Statisztikák')
+	sub_menu4.add_command(label='Információk', command=teglatoro_statisztika)
+	sub_menu4.add_command(label='Indítás', command=snake_start)
+	sub_menu4.add_command(label='Statisztikák', command=snake_statisztika)
 	jatek.add_cascade(
 		label="Snake",
 		menu=sub_menu4
 	)
 	
-	jatek.add_cascade(label = "Játékok", menu = menu1)
+	
 	matek.add_command(label="Számológép")
 	matek.add_command(label="Kerület Terület")
 	matek.add_command(label="Turtle", command=turtle_start)

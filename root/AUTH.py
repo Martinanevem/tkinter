@@ -93,10 +93,10 @@ def auth_regisztracio(ablak1, nev, jelszo, jelszo_ujra):
         else: #ekkor végre mindent jól csinált a felhasználó
             veges_adatok = {user: password}
             database.child("Users").update(veges_adatok)
-            database.child("Kigyos_jatek").update(veges_adatok)
             database.child("Osszes_pontszam").update({user: 0})
             database.child("Akasztofa").update({user: 0})
             database.child("Teglatoro").update({user: 0})
+            database.child("Kigyos_jatek").update({user: 0})
             ablak1.destroy()
 
 
