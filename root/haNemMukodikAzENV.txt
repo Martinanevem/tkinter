@@ -1,0 +1,11 @@
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+
+pip install pyrebase
+pip install pyrebase3
+pip install pyrebase4
+pip install Pillow
+pip install requests-toolbelt==0.10.1
+pip install firebase-admin
+pip install firebase
+pip install --upgrade setuptools
+pip install pycryptodome

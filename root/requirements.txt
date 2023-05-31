@@ -1,0 +1,8 @@
+pyrebase4
+Pillow
+requests-toolbelt==0.10.1
+firebase-admin
+firebase
+setuptools
+cryptography
+tabulate
