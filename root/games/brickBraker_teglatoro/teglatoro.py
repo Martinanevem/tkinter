@@ -20,7 +20,7 @@ class GameObject(object):
 
 class Ball(GameObject):
     def __init__(self, canvas, x, y):
-        self.radius = 5
+        self.radius = 10
         self.direction = [1, -1]
         self.speed = 15
         item = canvas.create_oval(x-self.radius, y-self.radius,
@@ -62,7 +62,7 @@ class Ball(GameObject):
 class Paddle(GameObject):
     def __init__(self, canvas, x, y):
         self.width = 120
-        self.height = 20
+        self.height = 10
         self.ball = None
         item = canvas.create_rectangle(x - self.width / 2,
                                        y - self.height / 2,
@@ -133,9 +133,9 @@ class Game(tk.Frame):
         self.setup_game()
         self.canvas.focus_set()
         self.canvas.bind('<Left>',
-                         lambda _: self.paddle.move(-10))
+                         lambda _: self.paddle.move(-40))
         self.canvas.bind('<Right>',
-                         lambda _: self.paddle.move(10))
+                         lambda _: self.paddle.move(40))
 
     def setup_game(self):
            self.add_ball()
