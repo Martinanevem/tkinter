@@ -2,6 +2,18 @@ from tkinter import *
 import pyrebase
 
 def profil_szerkesztes(jelszo, bio, hely):
+
+
+
+
+    snake_kituntetesek = 0
+    teglatoro_kituntetesek = 0
+    akasztofa_kituntetesek = 0
+
+
+
+
+
     with open("adatok.txt", "r", encoding="UTF-8") as fajl:
         nev = fajl.readline().strip()
     print(jelszo, bio, hely, nev)
@@ -21,6 +33,21 @@ def profil_szerkesztes(jelszo, bio, hely):
         firebase = pyrebase.initialize_app(config)
         database = firebase.database()
 
+
+        jelenlegi_pont_teglatoro = database.child('Teglatoro').child(nev).get().val()
+        jelenlegi_pont_snake = database.child('Kigyos_jatek').child(nev).get().val()
+        jelenlegi_pont_akasztofa = database.child('Akasztofa').child(nev).get().val()
+
+        #először az akasztófás kitüntetések:
+        if jelenlegi_pont_akasztofa >=2 : akasztofa_kituntetesek += 1
+        if jelenlegi_pont_akasztofa >=20 : akasztofa_kituntetesek += 1
+
+        akasztofa_kep = "0"
+        for i in akasztofa_kituntetesek:
+            pass
+            #mindig adjon hozzá egy képet---
+            print(akasztofa_kep)
+            
 
         mentendo = bemutatkoz_ki.get()
         mentendo_nev = jelszo_ki.get()
