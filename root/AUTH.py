@@ -97,6 +97,11 @@ def auth_regisztracio(ablak1, nev, jelszo, jelszo_ujra):
             database.child("Akasztofa").update({user: 0})
             database.child("Teglatoro").update({user: 0})
             database.child("Kigyos_jatek").update({user: 0})
+
+
+            database.child("Akasztofa_OSSZES").update({user: 0})
+            database.child("Teglatoro_OSSZES").update({user: 0})
+            database.child("Kigyos_jatek_OSSZES").update({user: 0})
             ablak1.destroy()
 
 

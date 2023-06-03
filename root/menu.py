@@ -4,7 +4,6 @@ import subprocess
 
 from profil import profil_szerkesztes
 
-
 import sys
 
 def menu(ablak1, bejelentkezve, titkos_adatok):
@@ -133,6 +132,12 @@ def menu(ablak1, bejelentkezve, titkos_adatok):
 			subprocess.run(["python", "./matek/turtle.py"])
 		except:
 			subprocess.run(["python", "./matek/turtle.py"])
+	
+	def szamologep_start():
+		try:
+			subprocess.run(["python", "./matek/szamologep.py"])
+		except:
+			subprocess.run(["python", "./root/matek/szamologep.py"])
 
 
 	#MATEK részleg vége------------------------------------
@@ -142,6 +147,27 @@ def menu(ablak1, bejelentkezve, titkos_adatok):
 			subprocess.run(["python", "./profil.py"])
 		except:
 			subprocess.run(["python", "./profil.py"])
+	
+	def kijelentkezes():
+		try:
+			ablak1.destroy()
+			subprocess.run(["python", "./main.py"])
+		except:
+			ablak1.destroy()
+			subprocess.run(["python", "./main.py"])
+	
+
+
+
+
+
+	def akasztofa_informacio():
+		subprocess.run(["python", "./games/akasztofa/leiras.py"])
+	def teglatoro_informacio():
+		subprocess.run(["python", "./games/brickBraker_teglatoro/leiras.py"])
+	def snake_informacio():
+		subprocess.run(["python", "./games/kigyo/leiras.py"])
+			
 		
 		
 
@@ -177,11 +203,11 @@ def menu(ablak1, bejelentkezve, titkos_adatok):
 	else: profil=Menu(menu3, tearoff="off")
 	rolunk=Menu(menu4, tearoff="off")
 
-	fajl.add_command(label="Kilepes",command=ablak1.destroy)
+	fajl.add_command(label="Kilépés",command=ablak1.destroy)
 	fajl.add_command(label="Export",command=ablak1.destroy)
 	fajl.add_command(label="Import",command=ablak1.destroy)
 	sub_menu = Menu(jatek, tearoff=0)
-	sub_menu.add_command(label='Információk', command=teglatoro_statisztika)
+	sub_menu.add_command(label='Információk', command=akasztofa_informacio)
 	sub_menu.add_command(label='Indítás',command=akasztofa_start)
 	sub_menu.add_command(label='Statisztikák', command=akasztofa_statisztika)
 	jatek.add_cascade(
@@ -190,7 +216,7 @@ def menu(ablak1, bejelentkezve, titkos_adatok):
 	)
 
 	sub_menu1 = Menu(jatek, tearoff=0)
-	sub_menu1.add_command(label='Információk', command=teglatoro_statisztika)
+	sub_menu1.add_command(label='Információk', command=teglatoro_informacio)
 	sub_menu1.add_command(label='Indítás', command=teglatoro_start)
 	sub_menu1.add_command(label='Statisztikák', command=teglatoro_statisztika)
 	jatek.add_cascade(
@@ -215,7 +241,7 @@ def menu(ablak1, bejelentkezve, titkos_adatok):
 		menu=sub_menu3
 	)
 	sub_menu4 = Menu(jatek, tearoff=0)
-	sub_menu4.add_command(label='Információk', command=teglatoro_statisztika)
+	sub_menu4.add_command(label='Információk', command=snake_informacio)
 	sub_menu4.add_command(label='Indítás', command=snake_start)
 	sub_menu4.add_command(label='Statisztikák', command=snake_statisztika)
 	jatek.add_cascade(
@@ -224,13 +250,13 @@ def menu(ablak1, bejelentkezve, titkos_adatok):
 	)
 	
 	
-	matek.add_command(label="Számológép")
+	matek.add_command(label="Számológép", command=szamologep_start)
 	matek.add_command(label="Kerület Terület")
 	matek.add_command(label="Turtle", command=turtle_start)
 	if bejelentkezve: 
 		profil.add_command(label="Testreszabás", command=lambda:profil_szerkesztes(titkos_adatok[0], titkos_adatok[1], titkos_adatok[2]))
 		profil.add_command(label="Ranglista")
-		profil.add_command(label="Kijelentkezés")
+		profil.add_command(label="Kijelentkezés", command=kijelentkezes)
 
 	rolunk.add_command(label="A programot készítette:")
 	rolunk.add_command(label="Basa Martin")

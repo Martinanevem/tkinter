@@ -162,6 +162,45 @@ class Game(tk.Frame):
                                        font=font)
 
     def update_lives_text(self):
+        config = {
+        "apiKey": "AIzaSyCsLNLdZWJ5RtPeXSdOraiE83g87HOAW_w",
+        "authDomain": "authfortkinter.firebaseapp.com",
+        "projectId": "authfortkinter",
+        "databaseURL": "https://authfortkinter-default-rtdb.europe-west1.firebasedatabase.app/",
+        "storageBucket": "authfortkinter.appspot.com",
+        "messagingSenderId": "132997432044",
+        "appId": "1:132997432044:web:b3f5e167ae61b0f5c0dbc9"
+        }
+        firebase = pyrebase.initialize_app(config)
+        database = firebase.database()
+        jelenleg_itt_vagy = os.path.dirname(os.path.abspath(__file__))
+        a_mappa_helye = os.path.join(jelenleg_itt_vagy, '..', '..')
+        a_mappa_helye = os.path.normpath(a_mappa_helye)
+        a_fajl_helye = os.path.join(a_mappa_helye, 'adatok.txt')
+        jelenlegi_user = open(a_fajl_helye, "r", encoding="UTF-8")
+        user = jelenlegi_user.readline()
+
+        if user != "Vendég":
+
+            #ha nyert:
+            jelenlegi_pont = database.child('Osszes_pontszam').child(user).get().val()
+            if jelenlegi_pont is None:
+                jelenlegi_pont = 0
+            else:
+                jelenlegi_pont = int(jelenlegi_pont)
+            uj_pont = jelenlegi_pont + 1
+            database.child('Osszes_pontszam').child(user).set(uj_pont)
+
+            #csak az akasztofa ranglistan:
+            jelenlegi_pont_teglatoro = database.child('Teglatoro').child(user).get().val()
+            
+            if jelenlegi_pont_teglatoro is None:
+                jelenlegi_pont_teglatoro = 0
+            else:
+                jelenlegi_pont_teglatoro = jelenlegi_pont_teglatoro
+            
+            uj_pont_teglatoro = jelenlegi_pont_teglatoro + 1
+            database.child('Teglatoro').child(user).set(uj_pont_teglatoro)
         text = 'Életeid: %s' % self.lives
         if self.hud is None:
             self.hud = self.draw_text(50, 20, text, 15)
@@ -169,6 +208,33 @@ class Game(tk.Frame):
             self.canvas.itemconfig(self.hud, text=text)
 
     def start_game(self):
+        config = {
+            "apiKey": "AIzaSyCsLNLdZWJ5RtPeXSdOraiE83g87HOAW_w",
+            "authDomain": "authfortkinter.firebaseapp.com",
+            "projectId": "authfortkinter",
+            "databaseURL": "https://authfortkinter-default-rtdb.europe-west1.firebasedatabase.app/",
+            "storageBucket": "authfortkinter.appspot.com",
+            "messagingSenderId": "132997432044",
+            "appId": "1:132997432044:web:b3f5e167ae61b0f5c0dbc9"
+            }
+        firebase = pyrebase.initialize_app(config)
+        database = firebase.database()
+        jelenleg_itt_vagy = os.path.dirname(os.path.abspath(__file__))
+        a_mappa_helye = os.path.join(jelenleg_itt_vagy, '..', '..')
+        a_mappa_helye = os.path.normpath(a_mappa_helye)
+        a_fajl_helye = os.path.join(a_mappa_helye, 'adatok.txt')
+        jelenlegi_user = open(a_fajl_helye, "r", encoding="UTF-8")
+        user = jelenlegi_user.readline()
+
+        if user != "Vendég":
+            jelenlegi_pont_teglatoro_OSSZES = database.child('Teglatoro_OSSZES').child(user).get().val()
+            if jelenlegi_pont_teglatoro_OSSZES is None:
+                jelenlegi_pont_teglatoro_OSSZES = 0
+            else:
+                jelenlegi_pont_teglatoro_OSSZES = int(jelenlegi_pont_teglatoro_OSSZES)
+            uj_pont_teglatoro_OSSZES = jelenlegi_pont_teglatoro_OSSZES + 1
+            database.child('Teglatoro_OSSZES').child(user).set(uj_pont_teglatoro_OSSZES)
+
         self.canvas.unbind('<space>')
         self.canvas.delete(self.text)
         self.paddle.ball = None
@@ -179,46 +245,6 @@ class Game(tk.Frame):
         num_bricks = len(self.canvas.find_withtag('brick'))
         if num_bricks == 0: 
             self.ball.speed = None
-
-            config = {
-            "apiKey": "AIzaSyCsLNLdZWJ5RtPeXSdOraiE83g87HOAW_w",
-            "authDomain": "authfortkinter.firebaseapp.com",
-            "projectId": "authfortkinter",
-            "databaseURL": "https://authfortkinter-default-rtdb.europe-west1.firebasedatabase.app/",
-            "storageBucket": "authfortkinter.appspot.com",
-            "messagingSenderId": "132997432044",
-            "appId": "1:132997432044:web:b3f5e167ae61b0f5c0dbc9"
-            }
-            firebase = pyrebase.initialize_app(config)
-            database = firebase.database()
-            jelenleg_itt_vagy = os.path.dirname(os.path.abspath(__file__))
-            a_mappa_helye = os.path.join(jelenleg_itt_vagy, '..', '..')
-            a_mappa_helye = os.path.normpath(a_mappa_helye)
-            a_fajl_helye = os.path.join(a_mappa_helye, 'adatok.txt')
-            jelenlegi_user = open(a_fajl_helye, "r", encoding="UTF-8")
-            user = jelenlegi_user.readline()
-
-            if user != "Vendég":
-
-                #ha nyert:
-                jelenlegi_pont = database.child('Osszes_pontszam').child(user).get().val()
-                if jelenlegi_pont is None:
-                    jelenlegi_pont = 0
-                else:
-                    jelenlegi_pont = int(jelenlegi_pont)
-                uj_pont = jelenlegi_pont + 1
-                database.child('Osszes_pontszam').child(user).set(uj_pont)
-
-                #csak az akasztofa ranglistan:
-                jelenlegi_pont_teglatoro = database.child('Teglatoro').child(user).get().val()
-                
-                if jelenlegi_pont_teglatoro is None:
-                    jelenlegi_pont_teglatoro = 0
-                else:
-                    jelenlegi_pont_teglatoro = jelenlegi_pont_teglatoro
-                
-                uj_pont_teglatoro = jelenlegi_pont_teglatoro + 1
-                database.child('Teglatoro').child(user).set(uj_pont_teglatoro)
 
             self.draw_text(300, 200, 'Nyertél!')
         elif self.ball.get_position()[3] >= self.height: 

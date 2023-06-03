@@ -311,6 +311,19 @@ class Akasztofa:
     
         if vesztett:
             self.label_feedback.config(text="Vesztettél! A szó: '{}'".format(self.szo))
+            if user != "Vendég":
+                jelenlegi_pont_akasztofa_OSSZES = database.child('Akasztofa_OSSZES').child(user).get().val()
+
+                if jelenlegi_pont_akasztofa_OSSZES is None:
+                    jelenlegi_pont_akasztofa_OSSZES = 0
+                else:
+                    jelenlegi_pont_akasztofa_OSSZES = int(jelenlegi_pont_akasztofa_OSSZES)
+                uj_pont_akasztofa_OSSZES = jelenlegi_pont_akasztofa_OSSZES + 1
+                database.child('Akasztofa_OSSZES').child(user).set(uj_pont_akasztofa_OSSZES)
+
+
+
+
         else:
             #ha nyert:
             if user != "Vendég":
@@ -324,12 +337,24 @@ class Akasztofa:
 
                 #csak az akasztofa ranglistan:
                 jelenlegi_pont_akasztofa = database.child('Akasztofa').child(user).get().val()
+                jelenlegi_pont_akasztofa_OSSZES = database.child('Akasztofa_OSSZES').child(user).get().val()
                 if jelenlegi_pont_akasztofa is None:
                     jelenlegi_pont_akasztofa = 0
                 else:
                     jelenlegi_pont_akasztofa = int(jelenlegi_pont_akasztofa)
+
+
+
+                if jelenlegi_pont_akasztofa_OSSZES is None:
+                    jelenlegi_pont_akasztofa_OSSZES = 0
+                else:
+                    jelenlegi_pont_akasztofa_OSSZES = int(jelenlegi_pont_akasztofa_OSSZES)
+
+
                 uj_pont_akasztofa = jelenlegi_pont_akasztofa + 1
+                uj_pont_akasztofa_OSSZES = jelenlegi_pont_akasztofa_OSSZES + 1
                 database.child('Akasztofa').child(user).set(uj_pont_akasztofa)
+                database.child('Akasztofa_OSSZES').child(user).set(uj_pont_akasztofa_OSSZES)
             self.label_feedback.config(text="Sikeresen kitaláltad a szót: '{}'".format(self.szo))
 
         self.entry_guess.config(state=tk.DISABLED)
