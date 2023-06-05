@@ -6,3 +6,4 @@ firebase
 setuptools
 cryptography
 tabulate
+Pillow
