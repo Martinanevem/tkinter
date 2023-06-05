@@ -39,4 +39,39 @@ for key, value in sorted(jelenlegi_pont.items(), key=lambda x: x[1], reverse=Tru
 
     row += 1
 
+
+if user != "Vendég":
+    jelenlegi_pont_akasztofa = database.child('Teglatoro').get().val()
+
+    osszes = database.child('Teglatoro_OSSZES').child(user).get().val()
+    if osszes is None:
+        osszes = 0
+    else:
+        osszes = int(osszes)
+    
+    nyert_ = database.child('Teglatoro').child(user).get().val()
+    if nyert_ is None:
+        nyert_ = 0
+    else:
+        nyert_ = int(nyert_)
+
+    osszes = osszes
+    nyert = nyert_
+    vesztett = osszes-nyert
+
+    search_key = user
+    sorted_items = sorted(jelenlegi_pont_akasztofa.items(), key=lambda x: x[1], reverse=True)
+    for index, (key, value) in enumerate(sorted_items):
+        if key == search_key:
+            hely = index
+    szoveg = f"{hely+1}. helyen állsz a téglatörő ranglistán!"
+
+    osszes = f"Összes játékok: {osszes}"
+    nyert = f"Megszerzett téglák: {nyert}"
+    vesztett = f"Vesztett játékok: {vesztett}"
+    a_te_statod = Label(ablak1, text="A te statisztikáid", font=('Helvetica bold', 16)).grid(padx=2,row=5, column=5, columnspan=4)
+    osszes_jatek = Label(ablak1, text=osszes, font=('Helvetica bold', 12)).grid(row=7, column=5)
+    osszes_jatek = Label(ablak1, text=nyert, font=('Helvetica bold', 12)).grid(row=8, column=5)
+    hely = Label(ablak1, text=szoveg, font=('Helvetica bold', 9)).grid(row=9, column=5)
+
 ablak1.mainloop()

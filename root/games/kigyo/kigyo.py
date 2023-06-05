@@ -62,14 +62,14 @@ import pyrebase
 import os
 
 config = {
-    "apiKey": "your_api_key",
-    "authDomain": "your_auth_domain",
-    "projectId": "your_project_id",
-    "databaseURL": "your_database_url",
-    "storageBucket": "your_storage_bucket",
-    "messagingSenderId": "your_messaging_sender_id",
-    "appId": "your_app_id"
-}
+        "apiKey": "AIzaSyCsLNLdZWJ5RtPeXSdOraiE83g87HOAW_w",
+        "authDomain": "authfortkinter.firebaseapp.com",
+        "projectId": "authfortkinter",
+        "databaseURL": "https://authfortkinter-default-rtdb.europe-west1.firebasedatabase.app/",
+        "storageBucket": "authfortkinter.appspot.com",
+        "messagingSenderId": "132997432044",
+        "appId": "1:132997432044:web:b3f5e167ae61b0f5c0dbc9"
+        }
 
 firebase = pyrebase.initialize_app(config)
 database = firebase.database()
@@ -173,6 +173,17 @@ def jatek_vege():
     is_game_over = True
 
     if user != "Vendég":  # de csak ha nem vendég
+        jelenlegi_pont_snake_OSSZES = database.child('Kigyos_jatek_OSSZES').child(user).get().val()
+        if jelenlegi_pont_snake_OSSZES is None:
+            jelenlegi_pont_snake_OSSZES = 0
+        else:
+            jelenlegi_pont_snake_OSSZES = int(jelenlegi_pont_snake_OSSZES)
+        uj_pont_snake_OSSZES = jelenlegi_pont_snake_OSSZES + 1
+        database.child('Kigyos_jatek_OSSZES').child(user).set(uj_pont_snake_OSSZES)
+
+
+
+
         jelenlegi_pont = database.child('Osszes_pontszam').child(user).get().val()
         if jelenlegi_pont is None:
             jelenlegi_pont = 0
